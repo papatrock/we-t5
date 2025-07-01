@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @marcador %>
+
+<div>
+  <%= link_to "Edit this marcador", edit_marcador_path(@marcador) %> |
+  <%= link_to "Back to marcadors", marcadors_path %>
+
+  <%= button_to "Destroy this marcador", @marcador, method: :delete %>
+</div>

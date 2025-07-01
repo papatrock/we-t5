@@ -1,0 +1,32 @@
+<%= form_with(model: analise) do |form| %>
+  <% if analise.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(analise.errors.count, "error") %> prohibited this analise from being saved:</h2>
+
+      <ul>
+        <% analise.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :nota, style: "display: block" %>
+    <%= form.text_field :nota %>
+  </div>
+
+  <div>
+    <%= form.label :analise, style: "display: block" %>
+    <%= form.textarea :analise %>
+  </div>
+
+  <div>
+    <%= form.label :jogo_id, style: "display: block" %>
+    <%= form.text_field :jogo_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

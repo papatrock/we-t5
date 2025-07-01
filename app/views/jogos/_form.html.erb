@@ -1,0 +1,52 @@
+<%= form_with(model: jogo) do |form| %>
+  <% if jogo.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(jogo.errors.count, "error") %> prohibited this jogo from being saved:</h2>
+
+      <ul>
+        <% jogo.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :nome, style: "display: block" %>
+    <%= form.text_field :nome %>
+  </div>
+
+  <div>
+    <%= form.label :ano, style: "display: block" %>
+    <%= form.number_field :ano %>
+  </div>
+
+  <div>
+    <%= form.label :genero, style: "display: block" %>
+    <%= form.text_field :genero %>
+  </div>
+
+  <div>
+    <%= form.label :plataforma, style: "display: block" %>
+    <%= form.text_field :plataforma %>
+  </div>
+
+  <div>
+    <%= form.label :desenvolvedora_id, style: "display: block" %>
+      <%= form.collection_select :desenvolvedora_id, Desenvolvedora.all, :id, :nome, prompt: 'Selecione uma desenvolvedora' %>
+  </div>
+
+  <div>
+  <%= form.label :marcadores %>
+  <%= form.collection_check_boxes :marcador_ids, Marcador.all, :id, :nome do |b| %>
+    <div class="collection-check-box">
+      <%= b.check_box %>
+      <%= b.label %>
+    </div>
+  <% end %>
+</div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

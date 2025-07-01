@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Marcadors" %>
+
+<h1>Marcadors</h1>
+
+<div id="marcadors">
+  <% @marcadors.each do |marcador| %>
+    <%= render marcador %>
+    <p>
+      <%= link_to "Show this marcador", marcador %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New marcador", new_marcador_path %>

@@ -1,0 +1,11 @@
+<% content_for :title, "New jogo" %>
+
+<h1>New jogo</h1>
+
+<%= render "form", jogo: @jogo %>
+
+<br>
+
+<div>
+  <%= link_to "Back to jogos", jogos_path %>
+</div>
