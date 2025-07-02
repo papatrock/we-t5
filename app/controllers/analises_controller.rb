@@ -1,31 +1,36 @@
 class AnalisesController < ApplicationController
-  before_action :set_analise, only: %i[ show edit update destroy ]
+  # Adiciona a busca do Jogo antes das ações new e create
+  before_action :set_jogo, only: %i[new create]
+  before_action :set_analise, only: %i[show edit update destroy]
 
-  # GET /analises or /analises.json
+  # GET /jogos/1/analises or /jogos/1/analises.json
   def index
-    @analises = Analise.all
+    # Se você quiser listar apenas as análises de um jogo específico
+    @jogo = Jogo.find(params[:jogo_id])
+    @analises = @jogo.analises
   end
 
   # GET /analises/1 or /analises/1.json
   def show
   end
 
-  # GET /analises/new
+  # GET /jogos/1/analises/new
   def new
-    @analise = Analise.new
+    @analise = @jogo.analises.build
   end
 
   # GET /analises/1/edit
   def edit
   end
 
-  # POST /analises or /analises.json
+  # POST /jogos/1/analises or /jogos/1/analises.json
   def create
-    @analise = Analise.new(analise_params)
+    @analise = @jogo.analises.build(analise_params)
 
     respond_to do |format|
       if @analise.save
-        format.html { redirect_to @analise, notice: "Analise was successfully created." }
+        # Redireciona de volta para a página do jogo
+        format.html { redirect_to @jogo, notice: "Análise adicionada com sucesso." }
         format.json { render :show, status: :created, location: @analise }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +43,8 @@ class AnalisesController < ApplicationController
   def update
     respond_to do |format|
       if @analise.update(analise_params)
-        format.html { redirect_to @analise, notice: "Analise was successfully updated." }
+        # Ao atualizar, pode ser útil redirecionar para a análise ou para o jogo
+        format.html { redirect_to @analise.jogo, notice: "Análise atualizada com sucesso." }
         format.json { render :show, status: :ok, location: @analise }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -49,22 +55,30 @@ class AnalisesController < ApplicationController
 
   # DELETE /analises/1 or /analises/1.json
   def destroy
+    jogo = @analise.jogo
     @analise.destroy!
 
     respond_to do |format|
-      format.html { redirect_to analises_path, status: :see_other, notice: "Analise was successfully destroyed." }
+      format.html { redirect_to jogo, notice: "Análise removida com sucesso." }
       format.json { head :no_content }
     end
   end
 
   private
+
+    # Busca o Jogo a partir do jogo_id na URL
+    def set_jogo
+      @jogo = Jogo.find(params[:jogo_id])
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_analise
-      @analise = Analise.find(params.expect(:id))
+      @analise = Analise.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
+    # O jogo_id não é mais necessário aqui pois já é pego da URL
     def analise_params
-      params.expect(analise: [ :nota, :analise, :jogo_id ])
+      params.require(:analise).permit(:nota, :analise)
     end
 end

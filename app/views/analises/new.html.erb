@@ -1,11 +1,17 @@
-<% content_for :title, "New analise" %>
+<h1>Adicionar Análise para <%= @jogo.nome %></h1>
 
-<h1>New analise</h1>
+<%= form_with(model: [@jogo, @analise]) do |form| %>
+  <div>
+    <%= form.label :nota %>
+    <%= form.number_field :nota, step: 0.1, in: 0..10 %>
+  </div>
 
-<%= render "form", analise: @analise %>
+  <div>
+    <%= form.label :analise, "Sua Análise" %>
+    <%= form.text_area :analise, rows: 5 %>
+  </div>
 
-<br>
-
-<div>
-  <%= link_to "Back to analises", analises_path %>
-</div>
+  <div>
+    <%= form.submit "Enviar Análise" %>
+  </div>
+<% end %>

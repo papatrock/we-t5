@@ -1,9 +1,34 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+puts "Limpando banco de dados..."
+Marcador.destroy_all
+Desenvolvedora.destroy_all
+Jogo.destroy_all
+
+puts "Criando Desenvolvedoras..."
+nintendo = Desenvolvedora.create!(nome: "Nintendo")
+fromsoftware = Desenvolvedora.create!(nome: "FromSoftware")
+cdpr = Desenvolvedora.create!(nome: "CD Projekt Red")
+larian = Desenvolvedora.create!(nome: "Larian Studios")
+
+puts "Criando Marcadores..."
+Marcador.create!([
+  { nome: "RPG" },
+  { nome: "Aventura" },
+  { nome: "Mundo Aberto" },
+  { nome: "Ação" },
+  { nome: "Soulslike" },
+  { nome: "Plataforma" },
+  { nome: "Indie" }
+])
+
+puts "Criando usuário Admin..."
+User.find_or_create_by!(email: 'admin@admin') do |user|
+  user.password = '123admin'
+  user.password_confirmation = '123admin'
+  user.admin = true
+end
+
+puts "Login de Admin:"
+puts "Email: admin@admin"
+puts "Senha: 123admin"
+
+puts "Banco de dados populado com sucesso!"

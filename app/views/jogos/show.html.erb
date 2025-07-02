@@ -8,3 +8,7 @@
 
   <%= button_to "Destroy this jogo", @jogo, method: :delete %>
 </div>
+
+<% if user_signed_in? %>
+  <%= link_to "Adicionar sua análise", new_jogo_analise_path(@jogo) %>
+<% end %>

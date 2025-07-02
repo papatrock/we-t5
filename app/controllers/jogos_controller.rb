@@ -1,5 +1,6 @@
 class JogosController < ApplicationController
   before_action :set_jogo, only: %i[ show edit update destroy ]
+  before_action :require_admin, only: [:new, :create, :edit, :update, :destroy]
 
   # GET /jogos or /jogos.json
   def index
@@ -25,7 +26,7 @@ class JogosController < ApplicationController
 
     respond_to do |format|
       if @jogo.save
-        format.html { redirect_to @jogo, notice: "Jogo was successfully created." }
+        format.html { redirect_to @jogo, notice: "Jogo criado com sucesso." }
         format.json { render :show, status: :created, location: @jogo }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -65,6 +66,13 @@ class JogosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def jogo_params
-      params.require(:jogo).permit(:nome, :ano, :genero, :plataforma, :desenvolvedora_id, { marcador_ids: [] })
+        params.require(:jogo).permit(:nome, :ano, :genero, :plataforma, :desenvolvedora_id, :imagem_url, marcador_ids: [], analise_attributes: [:id, :nota, :analise, :_destroy])
+    end
+
+    def require_admin
+        unless current_user.admin?
+        flash[:alert] = "Você não tem permissão para executar esta ação."
+        redirect_to root_path
+        end
     end
 end

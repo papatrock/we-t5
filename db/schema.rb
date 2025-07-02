@@ -10,14 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_01_222426) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_02_010841) do
   create_table "analises", force: :cascade do |t|
     t.float "nota"
     t.text "analise"
     t.integer "jogo_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
     t.index ["jogo_id"], name: "index_analises_on_jogo_id"
+    t.index ["user_id"], name: "index_analises_on_user_id"
   end
 
   create_table "desenvolvedoras", force: :cascade do |t|
@@ -34,6 +36,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_01_222426) do
     t.integer "desenvolvedora_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "imagem_url"
     t.index ["desenvolvedora_id"], name: "index_jogos_on_desenvolvedora_id"
   end
 
@@ -63,5 +66,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_01_222426) do
   end
 
   add_foreign_key "analises", "jogos"
+  add_foreign_key "analises", "users"
   add_foreign_key "jogos", "desenvolvedoras"
 end

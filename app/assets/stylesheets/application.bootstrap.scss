@@ -1,2 +1,31 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+:root {
+    --cor-fundo: #000000;
+    --cor-texto: #FFFFFF;
+    --cor-destaque: #00FF00;
+    --cor-link: #88FF88;
+}
+
+body {
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    font-family: sans-serif;
+    margin: 20px;
+}
+
+h1,
+h2,
+h3 {
+    color: var(--cor-destaque);
+}
+
+a {
+    color: var(--cor-link);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,20 @@
+<h1>Lista de Usuários</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Admin?</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.admin? ? 'Sim' : 'Não' %></td>
+        <td><%= link_to 'Editar', edit_user_registration_path(user) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
