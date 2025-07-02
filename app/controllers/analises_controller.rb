@@ -25,19 +25,19 @@ class AnalisesController < ApplicationController
 
   # POST /jogos/1/analises or /jogos/1/analises.json
   def create
-    @analise = @jogo.analises.build(analise_params)
+  @analise = @jogo.analises.build(analise_params)
+  @analise.user = current_user # Adicione esta linha para associar ao usuário logado
 
-    respond_to do |format|
-      if @analise.save
-        # Redireciona de volta para a página do jogo
-        format.html { redirect_to @jogo, notice: "Análise adicionada com sucesso." }
-        format.json { render :show, status: :created, location: @analise }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @analise.errors, status: :unprocessable_entity }
-      end
+  respond_to do |format|
+    if @analise.save
+      format.html { redirect_to @jogo, notice: "Análise adicionada com sucesso." }
+      format.json { render :show, status: :created, location: @analise }
+    else
+      format.html { render :new, status: :unprocessable_entity }
+      format.json { render json: @analise.errors, status: :unprocessable_entity }
     end
   end
+end
 
   # PATCH/PUT /analises/1 or /analises/1.json
   def update

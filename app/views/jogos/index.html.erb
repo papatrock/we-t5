@@ -42,10 +42,11 @@
       <h2><%= link_to jogo.nome, jogo %></h2>
 
       <%# Mostra a nota se o jogo tiver uma análise %>
-      <% if jogo.analise %>
-        <div class="score"><%= jogo.analise.nota %></div>
+      <% if jogo.analises.any? %>
+      <%# Pega a nota da primeira análise da lista %>
+      <div class="score"><%= jogo.analises.first.nota %></div>
       <% else %>
-        <div class="score">S/N</div>
+      <div class="score">S/N</div>
       <% end %>
 
       <%# Movemos os botões para DENTRO do card de cada jogo %>
