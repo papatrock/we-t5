@@ -9,6 +9,8 @@ class JogosController < ApplicationController
 
   # GET /jogos/1 or /jogos/1.json
   def show
+    @analise_do_usuario = @jogo.analises.find_by(user: current_user)
+    @outras_analises = @jogo.analises.where.not(user: current_user)
   end
 
   # GET /jogos/new
@@ -66,7 +68,7 @@ class JogosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def jogo_params
-        params.require(:jogo).permit(:nome, :ano, :genero, :plataforma, :desenvolvedora_id, :imagem_url, marcador_ids: [], analise_attributes: [:id, :nota, :analise, :_destroy])
+      params.require(:jogo).permit(:nome, :ano, :genero, :plataforma, :desenvolvedora_id, :imagem_url, marcador_ids: [])
     end
 
     def require_admin

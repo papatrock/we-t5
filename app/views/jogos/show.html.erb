@@ -1,14 +1,75 @@
-<p style="color: green"><%= notice %></p>
+<div class="row">
+  <div class="col-md-4">
+    <% if @jogo.imagem_url.present? %>
+      <%= image_tag @jogo.imagem_url, class: "img-fluid rounded" %>
+    <% else %>
+      <%= image_tag "https://via.placeholder.com/400x600.png?text=Sem+Capa", class: "img-fluid rounded" %>
+    <% end %>
+  </div>
 
-<%= render @jogo %>
+  <div class="col-md-8">
+    <h1><%= @jogo.nome %></h1>
+    <p class="lead">
+      <%= @jogo.desenvolvedora.nome %> | <%= @jogo.ano %>
+    </p>
+    <p>
+      <strong>Plataforma:</strong> <%= @jogo.plataforma %><br>
+      <strong>Gênero:</strong> <%= @jogo.genero %>
+    </p>
+    <div>
+      <strong>Marcadores:</strong>
+      <% @jogo.marcadors.each do |marcador| %>
+        <span class="badge bg-secondary"><%= marcador.nome %></span>
+      <% end %>
+    </div>
 
-<div>
-  <%= link_to "Edit this jogo", edit_jogo_path(@jogo) %> |
-  <%= link_to "Back to jogos", jogos_path %>
-
-  <%= button_to "Destroy this jogo", @jogo, method: :delete %>
+    <% if current_user.admin? %>
+      <div class="mt-3">
+        <%= link_to "Editar Jogo", edit_jogo_path(@jogo), class: "btn btn-secondary" %>
+        <%= button_to "Excluir Jogo", @jogo, method: :delete, data: { confirm: 'Tem certeza?' }, class: "btn btn-danger d-inline-block" %>
+      </div>
+    <% end %>
+  </div>
 </div>
 
-<% if user_signed_in? %>
-  <%= link_to "Adicionar sua análise", new_jogo_analise_path(@jogo) %>
-<% end %>
+<hr class="my-4" style="border-top: 1px solid var(--verde-neon);">
+
+<div class="row">
+  <div class="col-md-6">
+    <h3>Sua Análise</h3>
+    <% if @analise_do_usuario %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Nota: <%= @analise_do_usuario.nota %></h5>
+          <p class="card-text"><%= @analise_do_usuario.analise %></p>
+          <%= link_to "Editar minha análise", edit_analise_path(@analise_do_usuario), class: 'btn btn-secondary btn-sm' %>
+        </div>
+      </div>
+    <% else %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <p>Você ainda não fez uma análise para este jogo.</p>
+          <%= link_to "Criar análise", new_jogo_analise_path(@jogo), class: 'btn btn-primary' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-md-6">
+    <h3>Análises da Comunidade</h3>
+    <% if @outras_analises.any? %>
+      <% @outras_analises.each do |analise| %>
+        <div class="card mb-2">
+          <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-white-50">
+              <i class="bi bi-person-circle"></i> <%= analise.user.profile&.nome_de_usuario || analise.user.email %>
+              <span class="ms-auto"><strong>Nota: <%= analise.nota %></strong></span>
+            </h6>
+            <p class="card-text"><%= analise.analise %></p>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-white-50">Ainda não há outras análises da comunidade para este jogo.</p>
+    <% end %>
+  </div>
+</div>

@@ -2,30 +2,75 @@
 @import 'bootstrap-icons/font/bootstrap-icons';
 
 :root {
-    --cor-fundo: #000000;
-    --cor-texto: #FFFFFF;
-    --cor-destaque: #00FF00;
-    --cor-link: #88FF88;
+    --roxo-escuro: #31053b;
+    --verde-neon: #5ccb5f;
+    --cinza-claro: #f8f9fa;
+    --cinza-medio: #adb5bd;
+    --cinza-escuro: #343a40;
+    --preto: #000000;
 }
 
 body {
-    background-color: var(--cor-fundo);
-    color: var(--cor-texto);
-    font-family: sans-serif;
-    margin: 20px;
-}
-
-h1,
-h2,
-h3 {
-    color: var(--cor-destaque);
+    background-color: var(--roxo-escuro);
+    color: var(--cinza-claro);
 }
 
 a {
-    color: var(--cor-link);
+    color: var(--verde-neon);
     text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline;
+    color: var(--cinza-claro);
+}
+
+// Estilos para os Cards dos Jogos
+.card {
+    background-color: var(--cinza-escuro);
+    border: 1px solid var(--verde-neon);
+}
+
+.card-title a {
+    color: var(--cinza-claro);
+    text-decoration: none;
+}
+
+.card-title a:hover {
+    color: var(--verde-neon);
+}
+
+// Estilo para Botões
+.btn-primary {
+    background-color: var(--verde-neon);
+    border-color: var(--verde-neon);
+    color: var(--preto);
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #4aa04c;
+    border-color: #4aa04c;
+}
+
+.btn-secondary {
+    background-color: var(--cinza-medio);
+    border-color: var(--cinza-medio);
+}
+
+// Navbar
+.navbar {
+    background-color: var(--preto) !important;
+}
+
+// Notificações
+.alert-notice {
+    background-color: var(--verde-neon);
+    color: var(--preto);
+    border-color: #4aa04c;
+}
+
+.alert-alert {
+    background-color: #dc3545;
+    color: var(--cinza-claro);
+    border-color: #b02a37;
 }

@@ -85,20 +85,6 @@
     </div>
   </div>
 
-  <hr>
-  <h3>Análise do Jogo</h3>
-  <%= form.fields_for :analise do |analise_form| %>
-    <div>
-      <%= analise_form.label :nota, style: "display: block" %>
-      <%= analise_form.number_field :nota, step: 0.1, in: 0..10 %>
-    </div>
-    <div>
-      <%= analise_form.label :analise, style: "display: block" %>
-      <%= analise_form.text_area :analise %>
-    </div>
-  <% end %>
-  <hr>
-
   <div>
     <%= form.submit %>
   </div>

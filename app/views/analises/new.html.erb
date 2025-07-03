@@ -1,17 +1,11 @@
-<h1>Adicionar Análise para <%= @jogo.nome %></h1>
-
-<%= form_with(model: [@jogo, @analise]) do |form| %>
-  <div>
-    <%= form.label :nota %>
-    <%= form.number_field :nota, step: 0.1, in: 0..10 %>
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="card-title text-center">Nova Análise para <%= @jogo.nome %></h1>
+        <hr>
+        <%= render 'form', analise: @analise %>
+      </div>
+    </div>
   </div>
-
-  <div>
-    <%= form.label :analise, "Sua Análise" %>
-    <%= form.text_area :analise, rows: 5 %>
-  </div>
-
-  <div>
-    <%= form.submit "Enviar Análise" %>
-  </div>
-<% end %>
+</div>

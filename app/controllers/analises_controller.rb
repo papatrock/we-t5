@@ -41,15 +41,19 @@ end
 
   # PATCH/PUT /analises/1 or /analises/1.json
   def update
-    respond_to do |format|
-      if @analise.update(analise_params)
-        # Ao atualizar, pode ser útil redirecionar para a análise ou para o jogo
-        format.html { redirect_to @analise.jogo, notice: "Análise atualizada com sucesso." }
-        format.json { render :show, status: :ok, location: @analise }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @analise.errors, status: :unprocessable_entity }
+    if @analise.user == current_user
+      respond_to do |format|
+        if @analise.update(analise_params)
+          # Ao atualizar, pode ser útil redirecionar para a análise ou para o jogo
+          format.html { redirect_to @analise.jogo, notice: "Análise atualizada com sucesso." }
+          format.json { render :show, status: :ok, location: @analise }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @analise.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to root_path, alert: "Você não tem permissão para editar esta análise."
     end
   end
 
